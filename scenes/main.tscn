@@ -1,0 +1,157 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhnvuhrrtyimj"]
+
+[ext_resource type="Script" uid="uid://cibqx8tgs3afd" path="res://scripts/main.gd" id="1_o5qli"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5qli"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o5qli")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o5qli")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="app_name" type="Label" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "Dump Page - Ver 0.1
+GasSpace"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = -350
+
+[node name="side_bar" type="VBoxContainer" parent="VBoxContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="new_btn" type="Button" parent="VBoxContainer/HSplitContainer/side_bar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "NEW NOTE"
+
+[node name="save_btn2" type="Button" parent="VBoxContainer/HSplitContainer/side_bar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "QUICK SAVE"
+
+[node name="save_btn" type="Button" parent="VBoxContainer/HSplitContainer/side_bar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "SAVE NOTE(NEW)"
+
+[node name="load_btn" type="Button" parent="VBoxContainer/HSplitContainer/side_bar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "LOAD NOTE"
+
+[node name="clear_btn" type="Button" parent="VBoxContainer/HSplitContainer/side_bar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "CLEAR ALL"
+
+[node name="close_btn" type="Button" parent="VBoxContainer/HSplitContainer/side_bar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "CLOSE TAB"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+drag_to_rearrange_enabled = true
+
+[node name="note1" type="TextEdit" parent="VBoxContainer/HSplitContainer/MarginContainer/VBoxContainer/TabContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 15
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+caret_type = 1
+highlight_all_occurrences = true
+draw_tabs = true
+metadata/_tab_index = 0
+
+[node name="settings_bar" type="PopupMenu" parent="."]
+title = "SETTINGS"
+initial_position = 1
+size = Vector2i(300, 300)
+hide_on_item_selection = false
+hide_on_checkable_item_selection = false
+allow_search = false
+item_count = 3
+item_0/text = "SETTINGS"
+item_0/id = 0
+item_0/separator = true
+item_1/text = " : Hide SideBar"
+item_1/checkable = 1
+item_1/id = 1
+item_2/text = " : Hide App Name"
+item_2/checkable = 1
+item_2/id = 2
+
+[node name="setting_btn" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -69.0
+offset_bottom = 30.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "SETTINGS"
+
+[connection signal="pressed" from="VBoxContainer/HSplitContainer/side_bar/new_btn" to="." method="_on_new_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/HSplitContainer/side_bar/save_btn2" to="." method="_on_save_btn_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/HSplitContainer/side_bar/save_btn" to="." method="_on_save_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/HSplitContainer/side_bar/load_btn" to="." method="_on_load_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/HSplitContainer/side_bar/clear_btn" to="." method="_on_clear_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/HSplitContainer/side_bar/close_btn" to="." method="_on_close_btn_pressed"]
+[connection signal="id_pressed" from="settings_bar" to="." method="_on_settings_bar_id_pressed"]
+[connection signal="pressed" from="setting_btn" to="." method="_on_setting_btn_pressed"]
