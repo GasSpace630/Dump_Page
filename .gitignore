@@ -5,6 +5,7 @@
 .import/
 export.cfg
 export_credentials.cfg
+*.swp
 
 # Imported translations (automatically generated from CSV files)
 *.translation
