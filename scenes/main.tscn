@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhnvuhrrtyimj"]
+[gd_scene load_steps=6 format=3 uid="uid://dhnvuhrrtyimj"]
 
 [ext_resource type="Script" uid="uid://cibqx8tgs3afd" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://bcxfomlwjgdyp" path="res://assets/settings_icon.png" id="2_0wfyh"]
@@ -6,6 +6,16 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5qli"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sugp2"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.105882, 0.121569, 0.466667, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -36,16 +46,6 @@ grow_vertical = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="app_name" type="Label" parent="VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(10, 28)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
-text = "Dump Page - Ver 0.1
-GasSpace"
-horizontal_alignment = 1
-autowrap_mode = 2
-
 [node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -59,17 +59,30 @@ theme_override_constants/margin_bottom = 5
 
 [node name="Panel" type="Panel" parent="VBoxContainer/HSplitContainer/MarginContainer2"]
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_sugp2")
 
 [node name="side_bar" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 5
 
+[node name="app_name" type="Label" parent="VBoxContainer/HSplitContainer/MarginContainer2/side_bar"]
+custom_minimum_size = Vector2(10, 28)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "Dump Page - Ver 0.3
+GasSpace"
+horizontal_alignment = 1
+autowrap_mode = 2
+
 [node name="new_btn" type="Button" parent="VBoxContainer/HSplitContainer/MarginContainer2/side_bar"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "NEW NOTE"
+
+[node name="read_mode_btn" type="CheckButton" parent="VBoxContainer/HSplitContainer/MarginContainer2/side_bar"]
+layout_mode = 2
+text = "READ NOTE"
 
 [node name="save_btn2" type="Button" parent="VBoxContainer/HSplitContainer/MarginContainer2/side_bar"]
 layout_mode = 2
@@ -93,7 +106,7 @@ text = "LOAD NOTE"
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
-text = "CLEAR ALL"
+text = "CLEAR NOTE"
 
 [node name="close_btn" type="Button" parent="VBoxContainer/HSplitContainer/MarginContainer2/side_bar"]
 layout_mode = 2
@@ -101,13 +114,17 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "CLOSE TAB"
 
+[node name="help_btn" type="Button" parent="VBoxContainer/HSplitContainer/MarginContainer2/side_bar"]
+layout_mode = 2
+text = "HELP"
+
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/MarginContainer"]
 layout_mode = 2
@@ -115,6 +132,7 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer/HSplitContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_sugp2")
 current_tab = 0
 drag_to_rearrange_enabled = true
 
@@ -123,6 +141,15 @@ layout_mode = 2
 size_flags_vertical = 3
 highlight_all_occurrences = true
 metadata/_tab_index = 0
+
+[node name="read_note_lbl" type="RichTextLabel" parent="VBoxContainer/HSplitContainer/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = ExtResource("2_sugp2")
+bbcode_enabled = true
+fit_content = true
+scroll_following = true
 
 [node name="settings_bar" type="PopupMenu" parent="."]
 title = "SETTINGS"
@@ -138,9 +165,8 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -42.0
-offset_right = -1.0
-offset_bottom = 45.0
+offset_left = -31.0
+offset_bottom = 34.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 tooltip_text = "SETTINGS"
@@ -148,11 +174,26 @@ texture_normal = ExtResource("2_0wfyh")
 ignore_texture_size = true
 stretch_mode = 0
 
+[node name="help_panel" type="PopupPanel" parent="."]
+title = "HELP"
+initial_position = 1
+size = Vector2i(500, 350)
+visible = true
+always_on_top = true
+
+[node name="help_lbl" type="RichTextLabel" parent="help_panel"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 496.0
+offset_bottom = 346.0
+
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/MarginContainer2/side_bar/new_btn" to="." method="_on_new_btn_pressed"]
+[connection signal="toggled" from="VBoxContainer/HSplitContainer/MarginContainer2/side_bar/read_mode_btn" to="." method="_on_read_mode_btn_toggled"]
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/MarginContainer2/side_bar/save_btn2" to="." method="_on_save_btn_2_pressed"]
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/MarginContainer2/side_bar/save_btn" to="." method="_on_save_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/MarginContainer2/side_bar/load_btn" to="." method="_on_load_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/MarginContainer2/side_bar/clear_btn" to="." method="_on_clear_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/HSplitContainer/MarginContainer2/side_bar/close_btn" to="." method="_on_close_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/HSplitContainer/MarginContainer2/side_bar/help_btn" to="." method="_on_help_btn_pressed"]
 [connection signal="id_pressed" from="settings_bar" to="." method="_on_settings_bar_id_pressed"]
 [connection signal="pressed" from="setting_btn" to="." method="_on_setting_btn_pressed"]
